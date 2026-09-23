@@ -1,0 +1,490 @@
+
+> Overview
+  Before a customer ever sees an e-commerce storefront, the backend operations
+  and administration interface must be fully operational, secure, and
+  accessible.
+
+  For this phase of your prototype, your team’s primary focus is building and
+  designing the Admin Panel / Dashboard. You will demonstrate how store
+  managers handle catalog management, order processing, and system
+  administration before connecting these to the customer-facing frontend.
+
+
+  Core Deliverables & Specifications
+  1. Admin Dashboard & Operations (Primary Focus)
+  Your admin prototype must demonstrate functional or simulated UI flows for
+  the following:
+
+  Catalog & Inventory Management Panel:
+
+
+  Interface to add, edit, and delete products.
+
+  Fields for SKU setup, pricing, stock levels, variants (e.g., sizes, colors),
+  and product categories.
+
+  Automated low-stock alerts or safety stock warning indicators.
+
+  Order Lifecycle Management Panel:
+
+
+  View incoming customer orders and track order status (e.g., Pending,
+  Processing, Shipped, Delivered, Refunded).
+
+  Interface to simulate generating shipping labels, assigning tracking numbers,
+  or processing returns/refunds.
+
+  Inclusive Form & Data Entry Design:
+
+
+  Ensure admin data-entry forms support flexible customer profile inputs (e.g.,
+  single "Full Name" field support, inclusive gender choices, and non-binary
+  title fields).
+
+  2. Technical & Security Controls (Admin Level)
+  Role-Based Access & Authentication:
+
+
+  Design/simulate a secure login page enforcing Multi-Factor Authentication
+  (MFA) prompts for store administrators
+
+  Infrastructure Specification:
+
+
+  Specify your underlying stack type (SaaS like Shopify, Open-Source like
+  WooCommerce, or Custom/Headless like React/Next.js + Node).
+
+  Briefly document how your backend stores transactional data securely (e.g.,
+  database selection, encryption standards like AES-256 or bcrypt for
+  passwords).
+
+  3. Inclusive UI/UX & Web Accessibility (WCAG in Admin Panel)
+  Even internal admin tools must be accessible! Apply the POUR framework to
+  your admin dashboard:
+
+  Perceivable: All uploaded media thumbnails in the catalog manager must accept
+  descriptive alt text. Ensure high color contrast (WCAG AA standard) for
+  status badges (e.g., "Out of Stock" or "Payment Failed" must use explicit
+  text, not just red/green colors).
+
+  Operable: Admin tables, dropdowns, and form inputs must be fully accessible
+  via keyboard (Tab, Enter, arrow keys) with clear focus indicators.
+
+  Understandable: Provide clear error validation on admin forms (e.g., "SKU
+  must be unique" or "Price must be a positive number").
+
+  Robust: Use proper semantic HTML structure (<main>, <nav>, <table, <button>).
+
+  Submission Requirements
+  Submit the following to the LMS:
+
+  Admin Prototype Link: Interactive link to your admin panel (Figma prototype,
+  hosted live web app, or repository).
+
+  Technical & Accessibility Documentation (PDF - 2 Pages):
+
+  System Architecture Breakdown: Summary of chosen platform/stack, database
+  structure, and security controls.
+
+  WCAG Admin Audit: Highlight 3 specific accessibility choices integrated into
+  your admin interface.
+
+  Admin Walkthrough Video (3–5 minutes):
+
+  A recording demonstrating an administrator logging in, adding a new product
+  variant, managing stock levels, changing an order status, and navigating the
+  admin dashboard using keyboard-only controls.
+
+  Evaluation Rubric
+  Criteria      Exceeds Expectations (100%)     Meets Expectations (85%)        Needs Improvemen
+  (70%)
+  Admin Operations
+
+  Catalog, inventory alerts, variants, and order status updates are fully
+  functional or seamlessly simulated.
+  Basic catalog entry works, but order lifecycle or inventory tracking is
+  incomplete.
+  Minimal or non-functional admin tools; lacks core catalog or order controls.
+  Inclusive UX & WCAG
+
+  Admin UI strictly adheres to WCAG standards (keyboard navigation, proper form
+  labels, high contrast, non-color status indicators).
+  Admin UI is mostly accessible with minor flaws (e.g., 1–2 missing field
+  labels or contrast issues).
+  Fails accessibility guidelines; relies solely on color indicators or lacks
+  keyboard support.
+  Security & Architecture
+
+  Clear documentation of platform architecture, backend security (MFA, password
+  hashing), and data integrity measures.
+  Platform architecture is mentioned, but admin security or database design is
+  vague.
+  Unclear architecture; ignores backend security or admin authentication best
+  practices.
+  Demo & Submissions
+
+  Working link, thorough documentation, and a clear video demonstrating all
+  required admin workflows.
+  Video and link provided, but documentation lacks depth.
+  Incomplete deliverables or non-working prototype link. (we didnt do it right
+  on here?)
+
+  Thought for 5s (ctrl+o to expand)
+
+● I'll help you build an admin panel for an e-commerce storefront. Let me first
+  explore the current directory to understand what we're
+
+  Thought for 45s, searched for 1 pattern, read 4 files, ran 6 shell commands (ctrl+o to expand)
+
+● Write(src\components\admin\AdminLayout.tsx)
+  ⎿  Wrote 87 lines to src\components\admin\AdminLayout.tsx
+       1 import { Outlet, NavLink } from "react-router-dom";
+       2 import { Shield, LayoutDashboard, Users, Package, TrendingUp, Se
+         ttings, LogOut } from "lucide-react";
+       4 export const AdminLayout = () => {
+       5   return (
+       6     <div className="flex h-screen bg-gray-50 text-gray-900">
+       7       {/* Sidebar */}
+       9         <div className="flex h-16 items-center justify-between p
+         x-4 border-b border-gray-200">
+      10           <div className="flex items-center space-x-3">
+     … +94 lines (ctrl+o to expand)
+
+  Thought for 16s (ctrl+o to expand)
+
+● Write(src\components\admin\Dashboard.tsx)
+  ⎿  Wrote 152 lines to src\components\admin\Dashboard.tsx
+       1 import { Card, CardHeader, CardTitle, CardContent } from "@/comp
+       2 import { StatNotebookPen, Users, Package, TrendingUp } from "luc
+         ide-react";
+       4 export const Dashboard = () => {
+       6   const stats = [
+       7     { title: "Total Products", value: "124", icon: Package, tren
+       8     { title: "Active Orders", value: "28", icon: TrendingUp, tre
+         nd: "+5%", trendColor: "text-green-600" },
+         8%", trendColor: "text-green-600" },
+         bookPen, trend: "+15%", trendColor: "text-green-600" },
+     … +174 lines (ctrl+o to expand)
+
+  Thought for 1m 16s (ctrl+o to expand)
+
+● Write(src\components\admin\CatalogManagement.tsx)
+  ⎿  Wrote 773 lines to src\components\admin\CatalogManagement.tsx
+       1 import { useState } from "react";
+       2 import {
+       3   Card, CardHeader, CardTitle, CardContent,
+       4   Button,
+       5   Input,
+       6   Textarea,
+       7   Select, SelectTrigger, SelectValue, SelectContent, SelectItem,
+       8   Table, TableHeader, TableBody, TableRow, TableHead, TableCell,
+       9   Badge,
+      10   Toaster,
+     … +831 lines (ctrl+o to expand)
+
+  Thought for 53s (ctrl+o to expand)
+
+● Write(src\components\admin\OrderManagement.tsx)
+  ⎿  Wrote 460 lines to src\components\admin\OrderManagement.tsx
+       1 import { useState } from "react";
+       2 import {
+       3   Card, CardHeader, CardTitle, CardContent,
+       4   Button,
+       5   Input,
+       6   Table, TableHeader, TableBody, TableRow, TableHead, TableCell,
+       7   Badge,
+       8   Toaster,
+       9   Toast,
+      10   ToastDescription,
+     … +531 lines (ctrl+o to expand)
+
+  Thought for 12s (ctrl+o to expand)
+
+● Write(src\routes\AdminRoutes.tsx)
+  ⎿  Wrote 142 lines to src\routes\AdminRoutes.tsx
+       1 import { Navigate, Outlet, useNavigate } from "react-router-dom"
+       2 import { AdminLayout } from "@/components/admin/AdminLayout";
+       3 import { Dashboard } from "@/components/admin/Dashboard";
+       4 import { CatalogManagement } from "@/components/admin/CatalogMan
+       5 import { OrderManagement } from "@/components/admin/OrderManagem
+         ent";
+       7 // Simple auth check - in a real app, this would check actual au
+         th state
+       8 const checkAdminAuth = () => {
+      10   // In a real app, this would validate JWT tokens or session
+     … +149 lines (ctrl+o to expand)
+
+  Thought for 9s, read 1 file (ctrl+o to expand)
+
+● Update(src\App.tsx)
+  ⎿  Added 3 lines
+      1  import { useState, useCallback, useMemo } from "react";
+      2  import { Check } from "lucide-react";
+      3 +import { BrowserRouter, Routes, Route, Navigate } from "react-ro
+        +uter-dom";                                                      
+      4  
+      5  import { Header } from "@/components/Header";
+      6  import { Hero } from "@/components/Hero";
+     ...
+      14  import GradientWaves from "@/components/react-bits/Backgrounds/
+          GradientWaves";
+      15  import SwipeToast from "@/components/react-bits/Feedback/SwipeT
+          oast";
+      16  
+      17 +import { AdminRoutes, AdminLogin, AdminDashboard, AdminCatalog,
+         + AdminOrders } from "@/routes/AdminRoutes";                    
+      18 +                                                               
+      19  import type { Camera, CartItem } from "@/types";
+      20  
+      21  function todayStr(): string {
+
+  Thought for 30s (ctrl+o to expand)
+
+● Update(src\App.tsx)
+  ⎿  Added 104 lines, removed 90 lines
+      120    const cartCount = useMemo(() => cartItems.length, [cartItems
+           ]);
+      121  
+      122    return (
+      123 -    <div className="relative min-h-screen overflow-x-hidden bg
+          --transparent text-white">                                     
+      124 -      <div className="fixed inset-0 z-0 h-screen w-full bg-bla
+          -ck">                                                          
+      125 -        <GradientWaves                                        
+      126 -          horizonColor="#5227FF"                              
+      127 -          waveColor="#ff00f7"                                 
+      128 -          crestColor="#5f00ff"                                
+      129 -          speed={0.4}                                         
+      130 -          amplitude={2.5}                                     
+      131 -          waveScale={0.6}                                     
+      132 -          waveRatio={0.9}                                     
+      133 -          swell={35}                                          
+      134 -          turbulence={20}                                     
+      135 -          tilt={1.11}                                         
+      136 -          zoom={1}                                            
+      137 -          height={5.5}                                        
+      138 -          fogDepth={15}                                       
+      139 -          detail="medium"                                     
+      140 -          brightness={1}                                      
+      141 -          opacity={1}                                         
+      142 -          mouseInteraction                                    
+      143 -          parallaxStrength={0.5}                              
+      144 -          grain                                               
+      145 -          grainIntensity={0.05}                               
+      146 -          className="h-full w-full"                           
+      147 -        />                                                    
+      148 -      </div>                                                  
+      123 +    <BrowserRouter>                                           
+      124 +      <div className="relative min-h-screen overflow-x-hidden 
+          +bg-transparent text-white">                                   
+      125 +        <div className="fixed inset-0 z-0 h-screen w-full bg-b
+          +lack">                                                        
+      126 +          <GradientWaves                                      
+      127 +            horizonColor="#5227FF"                            
+      128 +            waveColor="#ff00f7"                               
+      129 +            crestColor="#5f00ff"                              
+      130 +            speed={0.4}                                       
+      131 +            amplitude={2.5}                                   
+      132 +            waveScale={0.6}                                   
+      133 +            waveRatio={0.9}                                   
+      134 +            swell={35}                                        
+      135 +            turbulence={20}                                   
+      136 +            tilt={1.11}                                       
+      137 +            zoom={1}                                          
+      138 +            height={5.5}                                      
+      139 +            fogDepth={15}                                     
+      140 +            detail="medium"                                   
+      141 +            brightness={1}                                    
+      142 +            opacity={1}                                       
+      143 +            mouseInteraction                                  
+      144 +            parallaxStrength={0.5}                            
+      145 +            grain                                             
+      146 +            grainIntensity={0.05}                             
+      147 +            className="h-full w-full"                         
+      148 +          />                                                  
+      149 +        </div>                                                
+      150  
+      150 -      <div className="relative z-10 bg-transparent">          
+      151 -        <Header                                               
+      152 -          cartCount={cartCount}                               
+      153 -          onCartOpen={() => setCartOpen(true)}                
+      154 -          onLogoClick={() =>                                  
+      155 -            window.scrollTo({                                 
+      156 -              top: 0,                                         
+      157 -              behavior: "smooth",                             
+      158 -            })                                                
+      159 -          }                                                   
+      160 -        />                                                    
+      161 -                                                              
+      162 -        <main>                                                
+      163 -          <Hero onBrowse={scrollToCatalog} />                 
+      164 -                                                              
+      165 -          <StatsBand />                                       
+      166 -                                                              
+      167 -          <Catalog                                            
+      168 -            onSelectCamera={setSelectedCamera}                
+      169 -            onAddToCart={addToCart}                           
+      151 +        <div className="relative z-10 bg-transparent">        
+      152 +          <Header                                             
+      153 +            cartCount={cartCount}                             
+      154 +            onCartOpen={() => setCartOpen(true)}              
+      155 +            onLogoClick={() =>                                
+      156 +              window.scrollTo({                               
+      157 +                top: 0,                                       
+      158 +                behavior: "smooth",                           
+      159 +              })                                              
+      160 +            }                                                 
+      161            />
+      162  
+      172 -          <Features />                                        
+      163 +          <main>                                              
+      164 +            <Routes>                                          
+      165 +              {/* Public Routes */}                           
+      166 +              <Route path="/" element={<Hero onBrowse={scrollT
+          +oCatalog} />}>                                                
+      167 +                <Route index element={<StatsBand />} />       
+      168 +                <Route path="catalog" element={<Catalog onSele
+          +ctCamera={setSelectedCamera} onAddToCart={addToCart} />} />   
+      169 +                <Route path="features" element={<Features />} 
+          +/>                                                            
+      170 +                <Route path="testimonials" element={<Testimoni
+          +als />} />                                                    
+      171 +              </Route>                                        
+      172  
+      174 -          <Testimonials />                                    
+      175 -        </main>                                               
+      173 +              {/* Admin Routes */}                            
+      174 +              <Route path="/admin/login" element={<AdminLogin 
+          +/>} />                                                        
+      175 +              <Route path="/admin" element={<AdminRoutes />}> 
+      176 +                <Route index element={<AdminDashboard />} />  
+      177 +                <Route path="dashboard" element={<AdminDashboa
+          +rd />} />                                                     
+      178 +                <Route path="catalog" element={<AdminCatalog /
+          +>} />                                                         
+      179 +                <Route path="orders" element={<AdminOrders />}
+          + />                                                           
+      180 +                {/* Add more admin routes as needed */}       
+      181 +              </Route>                                        
+      182  
+      177 -        <Footer />                                            
+      183 +              {/* Redirect root to home */}                   
+      184 +              <Route path="/" element={<Navigate to="/" replac
+          +e />} />                                                      
+      185 +              {/* Catch-all 404 */}                           
+      186 +              <Route path="*" element={<div className="p-6">40
+          +4 - Page Not Found</div>} />                                  
+      187 +            </Routes>                                         
+      188 +          </main>                                             
+      189  
+      179 -        {selectedCamera && (                                  
+      180 -          <CameraDetail                                       
+      181 -            camera={selectedCamera}                           
+      182 -            onClose={() => setSelectedCamera(null)}           
+      183 -            onAddToCart={addToCart}                           
+      184 -          />                                                  
+      185 -        )}                                                    
+      190 +          <Footer />                                          
+      191  
+      187 -        {cartOpen && (                                        
+      188 -          <CartDrawer                                         
+      189 -            items={cartItems}                                 
+      190 -            onClose={() => setCartOpen(false)}                
+      191 -            onRemove={removeFromCart}                         
+      192 -            onUpdateDates={updateDates}                       
+      193 -            onCheckout={handleCheckout}                       
+      194 -          />                                                  
+      195 -        )}                                                    
+      192 +          {selectedCamera && (                                
+      193 +            <CameraDetail                                     
+      194 +              camera={selectedCamera}                         
+      195 +              onClose={() => setSelectedCamera(null)}         
+      196 +              onAddToCart={addToCart}                         
+      197 +            />                                                
+      198 +          )}                                                  
+      199  
+      197 -        {toast && (                                           
+      198 -          <SwipeToast                                         
+      199 -            open={true}                                       
+      200 -            onClose={() => setToast(null)}                    
+      201 -            title={toast}                                     
+      202 -            description="Added to your cart"                  
+      203 -            icon={<Check size={18} className="text-zinc-300" s
+          -trokeWidth={2.5} />}                                          
+      204 -            actionLabel="Undo"                                
+      205 -            onAction={() => setToast(null)}                   
+      206 -            background="rgba(15, 23, 42, 0.55)"               
+      207 -            color="#edf7ff"                                   
+      208 -            fuseColor="#7dd3fc"                               
+      209 -            width={328}                                       
+      210 -            radius={18}                                       
+      211 -            slideMs={400}                                     
+      212 -            settleBounce={0.2}                                
+      213 -            swipeDistance={40}                                
+      214 -            duration={4000}                                   
+      215 -            fuse="bottom"                                     
+      216 -            pauseOnHover                                      
+      217 -            closeButton={false}                               
+      218 -          />                                                  
+      219 -        )}                                                    
+      200 +          {cartOpen && (                                      
+      201 +            <CartDrawer                                       
+      202 +              items={cartItems}                               
+      203 +              onClose={() => setCartOpen(false)}              
+      204 +              onRemove={removeFromCart}                       
+      205 +              onUpdateDates={updateDates}                     
+      206 +              onCheckout={handleCheckout}                     
+      207 +            />                                                
+      208 +          )}                                                  
+      209 +                                                              
+      210 +          {toast && (                                         
+      211 +            <SwipeToast                                       
+      212 +              open={true}                                     
+      213 +              onClose={() => setToast(null)}                  
+      214 +              title={toast}                                   
+      215 +              description="Added to your cart"                
+      216 +              icon={<Check size={18} className="text-zinc-300"
+          + strokeWidth={2.5} />}                                        
+      217 +              actionLabel="Undo"                              
+      218 +              onAction={() => setToast(null)}                 
+      219 +              background="rgba(15, 23, 42, 0.55)"             
+      220 +              color="#edf7ff"                                 
+      221 +              fuseColor="#7dd3fc"                             
+      222 +              width={328}                                     
+      223 +              radius={18}                                     
+      224 +              slideMs={400}                                   
+      225 +              settleBounce={0.2}                              
+      226 +              swipeDistance={40}                              
+      227 +              duration={4000}                                 
+      228 +              fuse="bottom"                                   
+      229 +              pauseOnHover                                    
+      230 +              closeButton={false}                             
+      231 +            />                                                
+      232 +          )}                                                  
+      233 +        </div>                                                
+      234        </div>
+      221 -    </div>                                                    
+      235 +    </BrowserRouter>                                          
+      236    );
+      237  }
+      238  
+
+  Thought for 2s, ran 1 shell command (ctrl+o to expand)
+
+● API Error: Request rejected (429) · Rate limit exceeded:
+  free-models-per-day. Add 10 credits to unlock 1000 free model requests
+  per day
+
+● Session model nvidia/nemotron-3-super-120b-a12b:free could not be
+  restored (not a model this version of Claude Code recognizes) — using
+  opus instead.
+
+> /model haiku
+  ⎿  Set model to claude-haiku-4-5-20251001
+
+> revert it back.
+  ⎿  3 skills available
+
+● API Error: 400 Ambiguous model 'claude-haiku-4-5-20251001'. Use
+  provider/model prefix (ex: lma/claude-haiku-4-5-20251001 or
+  cc/claude-haiku-4-5-20251001).
